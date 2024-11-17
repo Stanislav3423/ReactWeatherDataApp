@@ -10,16 +10,21 @@ const DataTable = ({ refresh }) => {
   const [isModalOpen, setIsModalOpen] = useState(false); // Стан для модального вікна
 
   useEffect(() => {
-    axios.get('http://localhost:8080/api/observations/getAll') 
-      .then(response => {
-        setData(response.data);
-        setLoading(false);
-      })
-      .catch(err => {
-        setError('Помилка завантаження даних');
-        setLoading(false);
-      });
+    fetchData('http://localhost:8080/api/observations/getAll');
   }, [refresh]);
+
+  const fetchData = (url) => {
+    setLoading(true);
+    axios.get(url)
+        .then(response => {
+            setData(response.data);
+            setLoading(false);
+        })
+        .catch(err => {
+            setError('Помилка завантаження даних');
+            setLoading(false);
+        });
+};
 
   const handleEditRow = (observation) => {
     setEditData(observation);
@@ -69,6 +74,17 @@ const DataTable = ({ refresh }) => {
   return (
     <div>
       <h1>Дані з таблиці</h1>
+      <div style={{ marginBottom: '20px' }}>
+                <button onClick={() => fetchData('http://localhost:8080/api/observations/getAll')}>
+                    Всі дані
+                </button>
+                <button onClick={() => fetchData('http://localhost:8080/api/observations/getPositiveTemperature')}>
+                    Температура більше 0
+                </button>
+                <button onClick={() => fetchData('http://localhost:8080/api/observations/getWithPrecipitation')}>
+                    Присутні опади
+                </button>
+            </div>
       <table border="1" cellPadding="10" style={{ marginTop: '20px', width: '70%', textAlign: 'center' }}>
         <thead >
           <tr>
