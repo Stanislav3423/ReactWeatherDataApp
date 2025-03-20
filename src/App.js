@@ -11,7 +11,7 @@ const App = () => {
   const handleSaveAdd = () => {
       const formattedDate = moment(addData.observationDate).format("YYYY-MM-DDTHH:mm:ss");
 
-      axios.post(`http://localhost:8080/api/observations/create`, {
+      axios.post(`http://weatherspringbootapi-aganc0dbc2hub4cg.polandcentral-01.azurewebsites.net/api/observations/create`, {
           ...addData,
           observationDate: formattedDate
       })
@@ -21,6 +21,7 @@ const App = () => {
       })
       .catch(err => {
           console.error(err);
+          error('Помилка при додаванні даних');
           setError('Помилка при оновленні даних');
       });
   };
