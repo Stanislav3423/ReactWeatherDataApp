@@ -10,7 +10,7 @@ const DataTable = ({ refresh }) => {
   const [isModalOpen, setIsModalOpen] = useState(false); // Стан для модального вікна
 
   useEffect(() => {
-    fetchData('http://localhost:8080/api/observations/getAll');
+    fetchData('http://weatherspringbootapi-aganc0dbc2hub4cg.polandcentral-01.azurewebsites.net/api/observations/getAll');
   }, [refresh]);
 
   const fetchData = (url) => {
